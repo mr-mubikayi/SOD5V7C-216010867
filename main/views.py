@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Post
 
 def home(request):
     context = {
@@ -16,3 +17,18 @@ def about(request):
         'features': ['Modern Web Design', 'Responsive Layout', 'Template Inheritance', 'URL Routing']
     }
     return render(request, 'main/about.html', context)
+
+def posts(request):
+    all_posts = Post.objects.all().order_by('-publication_date')
+    popular_posts = Post.objects.filter(views__gt=100).order_by('-views')
+    total_posts = all_posts.count()
+    popular_count = popular_posts.count()
+    
+    context = {
+        'posts': all_posts,
+        'popular_posts': popular_posts,
+        'total_posts': total_posts,
+        'popular_count': popular_count,
+        'title': 'Blog Posts'
+    }
+    return render(request, 'main/posts.html', context)
