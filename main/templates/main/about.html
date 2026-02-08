@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ title }} - Django Demo Site{% endblock %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    
+    <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #ffc107;">
+        <h3>{{ company_name }}</h3>
+        <p>{{ description }}</p>
+    </div>
+    
+    <div style="margin: 30px 0;">
+        <h3>Our Key Features</h3>
+        {% if features %}
+            <ul style="list-style-type: none; padding: 0;">
+                {% for feature in features %}
+                    <li style="background-color: #d4edda; margin: 10px 0; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745;">
+                        <strong>{{ forloop.counter }}.</strong> {{ feature }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No features available at this time.</p>
+        {% endif %}
+    </div>
+    
+    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: center;">
+        <h3>Template Logic Demonstration</h3>
+        <p>This page demonstrates:</p>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 15px;">
+            <div style="background-color: white; padding: 10px; margin: 5px; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <strong>Loop:</strong> {{ features|length }} items
+            </div>
+            <div style="background-color: white; padding: 10px; margin: 5px; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <strong>Filter:</strong> {{ company_name|upper }}
+            </div>
+            <div style="background-color: white; padding: 10px; margin: 5px; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <strong>Length:</strong> {{ description|length }} chars
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="{% url 'home' %}" style="background-color: #6c757d; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Back to Home</a>
+    </div>
+{% endblock %}
